@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.js": "/static/js/main.05e199d4.js",
+    "static/js/164.c0c44854.js": "/static/js/164.c0c44854.js",
+    "static/media/refresh.png": "/static/media/refresh.e7a97d65e9bd028ba0db.png",
+    "static/media/Eror.png": "/static/media/Eror.0ff1be60aa39e0591552.png",
+    "favicon.ico": "/favicon.ico",
+    "static/media/end.png": "/static/media/end.2055007893e57f2472a7.png",
+    "static/media/add.png": "/static/media/add.0e3a237e968f4b2515df.png",
+    "index.html": "/index.html",
+    "favicon-32.png": "/favicon-32.png",
+    "favicon-16.png": "/favicon-16.png",
+    "serve.json": "/serve.json",
+    "manifest.json": "/manifest.json",
+    "main.05e199d4.js.map": "/static/js/main.05e199d4.js.map",
+    "164.c0c44854.js.map": "/static/js/164.c0c44854.js.map"
+  },
+  "entrypoints": [
+    "static/js/164.c0c44854.js",
+    "static/js/main.05e199d4.js"
+  ]
+}
