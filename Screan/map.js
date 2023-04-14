@@ -2,6 +2,7 @@ import axios from 'axios';
 import styled from 'styled-components-native';
 import {gstyles} from "../gstyle"
 import { useState,useEffect } from 'react';
+import { useRoute } from '@react-navigation/native';
 import { 
   View,
   Text,
@@ -31,7 +32,7 @@ export default function Post({navigation}) {
   }
 function postdate() {
   var date = new Date();
-  
+  navigation.navigate('Головна')
     axios.post('https://63ff8f4f63e89b09139eef52.mockapi.io/item', {
       text: inputValue,
       //data:date.getHours()+":"+date.getMinutes()

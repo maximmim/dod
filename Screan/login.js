@@ -2,6 +2,7 @@ import axios from 'axios';
 import styled from 'styled-components-native';
 import {gstyles} from "../gstyle"
 import { useState,useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { 
   View,
   Text,
@@ -56,83 +57,54 @@ const clearAllData = async () => {
 
 
 
-export default function Login({navigation}) {
-  
+export default function Login() {
+  const navigation = useNavigation()
+  //clearAllData()
   const [inputValue, setInputValue] = useState('');
   const [items, setItems] = useState([]);
   
- 
+  useEffect(positio,[])
+
   const loadscene = () => {
-    navigation.navigate('Головна')
+    getData("name").then((name) => {
+
+      
+    navigation.navigate('Головна',{ name})
     
-  }
-  
-  async function position() {
-
-      axios.get('https://63ff8f4f63e89b09139eef52.mockapi.io/Eror')
-      .then(response => {
-        // Handle the response data
-        setItems(response.data);
-      })
-      .catch(error => {
-        // Handle any errors
-        Alert.alert("Eror 404","Please a reconnect to server")
-        console.error(error);
-      });
-
-
-
-
-    items.map(item  =>{
-
-getData('name').then((value) => {
-  if(item.nameacaunt == value) {
-      navigation.navigate("Головна")
-    }
-
-
-else {
-  saveData("name",inputValue)
-    axios.post('https://63ff8f4f63e89b09139eef52.mockapi.io/Eror', {
-      nameacaunt: inputValue,
     })
-      .then(response => {
-        // Handle the response data
-        console.log(response.data);
-      })
-      .catch(error => {
-        // Handle any errors
-        Alert.alert("Eror 404","Please resubmit to the server")
-        console.error(error);
-      });} }) })
   }
-
-
   
-
-
-useEffect(()=>{
-      axios.get('https://63ff8f4f63e89b09139eef52.mockapi.io/Eror')
-      .then(response => {
-        // Handle the response data
-        setItems(response.data);
-      })
-      .catch(error => {
-        // Handle any errors
-        Alert.alert("Eror 404","Please a reconnect to server")
-        console.error(error);
-      });
-
-    items.map(item  =>{
-getData('name').then((value) => {
-      if(item.nameacaunt == value) {
-        navigation.navigate("Головна")
-      }
-  }) })
-},[])
+async function position() 
+{
 
 
 
+  saveData("yyy","true")
+  saveData("name",inputValue)
+  loadscene()
+
+
+
+
+}
+
+
+
+function positio() 
+{
+
+
+
+getData("yyy").then((value) => {
+if(value === "true") {
+loadscene()
+}
+})
+
+
+
+
+}
  
 
   return (

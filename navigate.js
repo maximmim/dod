@@ -15,17 +15,18 @@ const Stack = createStackNavigator();
 
 export default function Navigate() {
     return <NavigationContainer>
-        <Stack.Navigator>                        
-           <Stack.Screen
+        <Stack.Navigator>                
+            
+            <Stack.Screen
             name="Головна"
             component={Main}
             optsions={{title:"Головна"}}
-            />
+            />         
             <Stack.Screen
             name="Login"
             component={Login}
             optsions={{title:"Login"}}
-            />
+            />                    
            <Stack.Screen
             name="Dext"
             component={Dext}
