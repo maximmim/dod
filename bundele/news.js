@@ -60,8 +60,8 @@ const navigation = useNavigation()
       }
 
 
-      function dw(name) {
-navigation.navigate('Dext', { text})
+      function dw() {
+navigation.navigate('Dext', { text,name})
 
       }
 
@@ -93,12 +93,13 @@ const PostText = styled.Text`
     
 `;
 const PostTextd = styled.Text`
-    top:30px
-    left: 30px;
+    top:-70px
+    left: 10px;
     height:100px;
     width:310px
     fontSize:20px;
     max-width: 100%
+    
 
 `;
 
