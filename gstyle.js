@@ -11,6 +11,19 @@ export const gstyles = StyleSheet.create({
             margin: 10,
             fontSize: 16,
           },
+          inputnik: {
+            top: 230,
+            backgroundColor: '#fff',
+            borderWidth: 1,
+            borderColor: '#ccc',
+            borderRadius: 5,
+            padding: 10,
+            left:95,
+            margin: 10,
+            fontSize: 16,
+            height:50,
+            width:200
+          },
           button: {
             top: 250,
             backgroundColor: '#fff',
@@ -66,6 +79,11 @@ export const gstyles = StyleSheet.create({
             fontSize:20            ,
             alignItems: 'center',
             justifyContent: 'center',
+          },
+          tec:{
+            top:100,
+            fontSize:20            ,
+
           },
           button_end: {
             position: 'absolute',

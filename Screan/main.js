@@ -3,7 +3,7 @@ import styled from 'styled-components-native';
 import { useRoute } from '@react-navigation/native';
 import Mainstack from '../bundele/news';
 import {gstyles} from "../gstyle"
-import { useState,useEffect } from 'react';
+import { useState,useEffect, useRef} from 'react';
 import { 
   StyleSheet,
   View,
@@ -20,7 +20,24 @@ import {
 } from 'react-native';
 import { RefreshControl } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const saveData = async (key, value) => {
+
+
+
+
+
+import * as Device from 'expo-device';
+import * as Notifications from 'expo-notifications';
+
+
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: false,
+      shouldSetBadge: false,
+    }),
+  });
+  /*
+  const saveData = async (key, value) => {
   try {
     await AsyncStorage.setItem(key, value);
   } catch (error) {
@@ -54,15 +71,128 @@ const clearAllData = async () => {
     console.error('Помилка очищення локального сховища:', error);
   }
 };
-
+*/
 export default function Main({navigation}) {
   const [inputValue, setInputValue] = useState('');
   const [items, setItems] = useState([]);
   const [Eror, setEror] = useState([]);
   const [isLoading, setisLoading] = useState(true);
-
+  const [expoPushToken, setExpoPushToken] = useState('');
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
   const [refreshing, setRefreshing] = useState(false);
-  useEffect(getdate, []);
+  const [nomerdata, setdata] = useState();
+
+
+  useEffect(() => {
+    getdate()
+    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      setNotification(notification);
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log(response);
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
+
+var tokens = ["ExponentPushToken[EBiZsTOfFwMEw2fVrt-qy2]","ExponentPushToken[oay4zwB-LMniJnpssCCOKB]"]
+
+  const message = {
+    to: expoPushToken,
+    sound: 'default',
+    title: 'Original Title',
+
+    body: 'And here is the body!',
+    data: { someData: 'goes here' },
+  };
+
+
+//sendPushNotification(message)  
+
+// Can use this function below OR use Expo's Push Notification Tool from: https://expo.dev/notifications
+async function sendPushNotification(msg) {
+
+
+  await fetch('https://exp.host/--/api/v2/push/send', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Accept-encoding': 'gzip, deflate',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(msg),
+  });
+}
+
+
+
+
+
+async function registerForPushNotificationsAsync() {
+  let token;
+  if (Device.isDevice) {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      alert('Failed to get push token for push notification!');
+      return;
+    }
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+    console.log(token);
+  } else {
+    alert('Must use physical device for Push Notifications');
+    Vibration.vibrate(1000)
+  }
+
+  if (Platform.OS === 'android') {
+    Notifications.setNotificationChannelAsync('default', {
+      name: 'default',
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#FF231F7C',
+    });
+  }
+
+  return token;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   //alert(route.params.name)
@@ -82,8 +212,17 @@ export default function Main({navigation}) {
 
 
 
-      
-      
+
+
+
+
+
+
+
+
+
+
+
  async function deleteAllItems() {
   try {
     const response = await axios.get("https://63ff8f4f63e89b09139eef52.mockapi.io/item");
@@ -93,28 +232,40 @@ export default function Main({navigation}) {
     console.log("All items deleted successfully!");
   } catch (error) {
     console.error(error);
+    Vibration.vibrate(1000)
   }
 }  
 
       
     //TypeError: Cannot read property 'tex' of undefined react native useRoute()
       // i use use Route for navigation what this error TypeError: Cannot read property 'value' of undefined
-    
-     
-      
 
-   
       
+      
+async function getCount() {
+  try {
+    const response = await axios.get('https://63ff8f4f63e89b09139eef52.mockapi.io/item');
+    const count = response.data.length;
+    console.log(`Количество объектов на сервере: ${count}`);
+  } catch (error) {
+    console.error(error);
+    Vibration.vibrate(1000)
+  }
+}
 
+console.log(nomerdata)
+
+//Напиши функцию для отаравки hello world через push увидомления expo  
 
 //напиши скрипт для удаления всех значений с https://63ff8f4f63e89b09139eef52.mockapi.io/item с помощу axios react native
 function getdate() { 
+ getCount(); 
 
-//navigation.navigate("Login")
+items.map(item=> {
+const gid = item.id
+})
 
-
-
-
+//sendPushNotification(message) 
 
 
 
@@ -123,12 +274,14 @@ setisLoading(true)
      axios.get('https://63ff8f4f63e89b09139eef52.mockapi.io/item')
       .then(response => {
         // Handle the response data
+        setdata(response.data.length)
         setItems(response.data);
       })
       .catch(error => {
         // Handle any errors
         Alert.alert("Eror 404","Please a reconnect to server")
         console.error(error);
+        Vibration.vibrate(1000)
       }).finally(()=> {
         setisLoading(false);  
 }
@@ -139,6 +292,7 @@ setisLoading(true)
         setEror(response.data);
       })
       .catch(error => {
+        Vibration.vibrate(1000)
         // Handle any errors
         Alert.alert("Eror 404","Please a reconnect to server")
         console.error(error);
@@ -150,13 +304,19 @@ setisLoading(true)
            setInterval(() => {
               Eror.map(item => {
         if (item.Eror=="1") {
-          
+          Vibration.vibrate(1000)
           navigation.navigate('Eror')
         }
       })
       }, 1); 
 
+var dat = new Date();
 
+//alert(date.getHours())
+if (dat.getMinutes() == 13) {
+
+  sendPushNotification(message)
+}
 
 
   return (
@@ -194,7 +354,7 @@ data={items}
 renderItem={({item})=>(
 
 
-<Mainstack text={item.text}/>
+<Mainstack text={item.text} name={item.nick}/>
   
 )}
 
@@ -234,6 +394,8 @@ renderItem={({item})=>(
 <Image style={gstyles.button_end} source={require('../assets/end.png')} />
           
 </TouchableOpacity>
+
+
 
     </View>
   );

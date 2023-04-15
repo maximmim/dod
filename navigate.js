@@ -4,11 +4,12 @@ import Login from "./Screan/login";
 import Post from "./Screan/map";
 import Eror from "./Screan/Eror";
 import Dext from "./Screan/text";
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Mainstack from "./bundele/news";
-
-
+import sendPushNotification from "./Screan/noti"
+import { gstyles } from "./gstyle";
 const Stack = createStackNavigator();
 
 
@@ -46,6 +47,11 @@ export default function Navigate() {
             name="Запостити"
             component={Post}
             optsions={{title:"Запостити"}}
+            />
+                       <Stack.Screen
+            name="noti"
+            component={sendPushNotification}
+            optsions={{title:"noti" }}
             />
         </Stack.Navigator>
     </NavigationContainer>
