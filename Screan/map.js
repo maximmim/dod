@@ -15,7 +15,7 @@ import {
 
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { Keyboard } from 'react-native';
 //write code for open changing in local for expo
 // збереження даних
 const saveData = async (key, value) => {
@@ -72,13 +72,13 @@ function es() {
     
   }
 function postdate() {
-  
+  Keyboard.dismiss();
   
   getData("nick").then(data => {
 
  
   var date = new Date();
-  navigation.navigate('Головна')
+  //navigation.navigate('Головна')
     axios.post('https://63ff8f4f63e89b09139eef52.mockapi.io/item', {
       text: inputValue,
       nick: data

@@ -16,15 +16,16 @@ import {
   Image,
   FlatList,
   Vibration,
-  NavigationContainer
+  NavigationContainer,
+  ScrollView
 
 } from 'react-native';
 import { RefreshControl } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Keyboard } from 'react-native';
+import Ionic from "react-native-vector-icons/Ionicons"
 
-
-
-
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 
@@ -72,7 +73,7 @@ const clearAllData = async () => {
   }
 };
 */
-export default function Main({navigation}) {
+export default function Main() {
   const [inputValue, setInputValue] = useState('');
   const [items, setItems] = useState([]);
   const [Eror, setEror] = useState([]);
@@ -242,7 +243,7 @@ async function getCount() {
   }
 }
 
-console.log(nomerdata)
+
 
 //Напиши функцию для отаравки hello world через push увидомления expo  
 
@@ -302,12 +303,22 @@ setisLoading(true)
       })
       }, 1); 
 
+      var Tab = createBottomTabNavigator()
 
 
 
 
   return (
-    <View>
+  <ScrollView
+  
+  refreshControl={
+    <RefreshControl refreshing={refreshing} onRefresh={da} />
+  }
+  
+  
+  >
+
+    
 
 
 
@@ -336,9 +347,7 @@ refreshControler={<RefreshControl refreshing={isLoading} onRefresh={getdate} />}
 
 
 
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={da} />
-        }
+
 
 
 data={items}
@@ -357,7 +366,7 @@ renderItem={({item})=>(
 
 
 
-
+{/*
 
 <TouchableOpacity
           style={gstyles.button_hom}
@@ -381,7 +390,7 @@ renderItem={({item})=>(
 
 
 
-{/*
+
 <TouchableOpacity
           style={gstyles.button_end}
           onPress={deleteAllItems}        
@@ -392,6 +401,7 @@ renderItem={({item})=>(
 
 */}
 
-    </View>
+</ScrollView>
+  
   );
 }
