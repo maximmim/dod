@@ -59,17 +59,7 @@ export const gstyles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
-    button_home: {
-        position: 'absolute',
-        alignItems: 'center',
-        justifyContent: 'center',
-        top:310,
-        width: 120,
-        height: 99,
-        
-        flex: 1,
-        left:75,
-          },
+
           fa:{
             
               bottom:0
@@ -96,18 +86,48 @@ export const gstyles = StyleSheet.create({
             flex: 1,
             left:140,
               },
+              button_en: {
+                position: 'absolute',
+                alignItems: 'center',
+                justifyContent: 'center',
+                top:310,
+                width: 120,
+                height: 99,
+                
+                flex: 1,
+                left:140,
+                  },    
+        button_home: {
+        position: 'absolute',
+        alignItems: 'center',
+        justifyContent: 'center',
+        top:650,
+        width: 120,
+        height: 99,
+        
+        flex: 1,
+        left:210,
+          },
+          button_hom: {
+            position: 'absolute',
+
+              },
+              
+          button_ad: {
+            position: 'absolute',
+
+              },
           button_add: {
             position: 'absolute',
             alignItems: 'center',
             justifyContent: 'center',
-            top:310,
+            top:650,
             width: 120,
             height: 99,
             
             flex: 1,
-            left:10,
+            left:80,
               },
-
               post: {
                 position: 'absolute',
                 top: 37,

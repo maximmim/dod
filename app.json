@@ -30,8 +30,16 @@
     },
     "extra": {
       "eas": {
-        "projectId": "00b8b0b4-11be-4b2c-be86-12950d4645c6"
+        "projectId": "1fe57d9a-a092-4c09-a418-a700df78d3da"
       }
-    }
+    },
+    "description": "",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/1fe57d9a-a092-4c09-a418-a700df78d3da"
+    },
+    "owner": "maixm"
   }
 }

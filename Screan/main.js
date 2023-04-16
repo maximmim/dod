@@ -15,12 +15,12 @@ import {
   TouchableOpacity,
   Image,
   FlatList,
-  Vibration
+  Vibration,
+  NavigationContainer
 
 } from 'react-native';
 import { RefreshControl } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 
 
 
@@ -146,13 +146,13 @@ async function registerForPushNotificationsAsync() {
       finalStatus = status;
     }
     if (finalStatus !== 'granted') {
-      alert('Failed to get push token for push notification!');
+      //alert('Failed to get push token for push notification!');
       return;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
     console.log(token);
   } else {
-    alert('Must use physical device for Push Notifications');
+    //alert('Must use physical device for Push Notifications');
     Vibration.vibrate(1000)
   }
 
@@ -203,25 +203,13 @@ async function registerForPushNotificationsAsync() {
     }
 
   const loadscene = () => {
-    Vibration.vibrate(1000)
-    Vibration.cancel()
-    Vibration.vibrate(1000)
+
     navigation.navigate('Запостити')
     
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
+  
 
  async function deleteAllItems() {
   try {
@@ -229,10 +217,11 @@ async function registerForPushNotificationsAsync() {
     const items = response.data;
 
     await Promise.all(items.map((item) => axios.delete(`https://63ff8f4f63e89b09139eef52.mockapi.io/item/${item.id}`)));
+
     console.log("All items deleted successfully!");
   } catch (error) {
     console.error(error);
-    Vibration.vibrate(1000)
+    
   }
 }  
 
@@ -304,23 +293,25 @@ setisLoading(true)
            setInterval(() => {
               Eror.map(item => {
         if (item.Eror=="1") {
-          Vibration.vibrate(1000)
+          //Vibration.vibrate(1000)
           navigation.navigate('Eror')
+
+
+          
         }
       })
       }, 1); 
 
-var dat = new Date();
 
-//alert(date.getHours())
-if (dat.getMinutes() == 13) {
 
-  sendPushNotification(message)
-}
 
 
   return (
     <View>
+
+
+
+
 
 
 
@@ -369,7 +360,7 @@ renderItem={({item})=>(
 
 
 <TouchableOpacity
-          style={gstyles.button_home}
+          style={gstyles.button_hom}
           onPress={da}
 >
 <Image style={gstyles.button_home} source={require('../assets/refresh.png')} />
@@ -380,13 +371,17 @@ renderItem={({item})=>(
 
 
 <TouchableOpacity
-          style={gstyles.button_add}
+          style={gstyles.button_ad}
           onPress={loadscene}        
 >
 <Image style={gstyles.button_add} source={require('../assets/add.png')} />
           
 </TouchableOpacity>
 
+
+
+
+{/*
 <TouchableOpacity
           style={gstyles.button_end}
           onPress={deleteAllItems}        
@@ -395,7 +390,7 @@ renderItem={({item})=>(
           
 </TouchableOpacity>
 
-
+*/}
 
     </View>
   );
